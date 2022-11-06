@@ -6,7 +6,7 @@ const verifyRoles = require("../middleware/verify-roles");
 const ROLE_LIST = require("../config/roles-list");
 
 router.route("/register").post(controller.registerUser);
-router.route("/login").get(controller.handleLogin);
+router.route("/login").post(controller.handleLogin);
 router.route("/logout").get(controller.handleLogout);
 router.route("/refresh").get(controller.refreshToken);
 
