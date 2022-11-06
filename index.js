@@ -3,8 +3,10 @@ const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-const router = require("./routes/router.js");
+const rootRouter = require("./routes/root-router");
+const authnRouter = require("./routes/authn-router");
 const cookieParser = require("cookie-parser");
+const verifyJwt = require("./middleware/verify-jwt");
 
 app.use(cors());
 app.use(morgan("combined"));
@@ -20,6 +22,8 @@ mongoose.connect(
     (err) => console.log(err)
 );
 
-app.use("/", router);
+app.use("/", rootRouter);
+app.use(verifyJwt);
+app.use("/authn", authnRouter);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
